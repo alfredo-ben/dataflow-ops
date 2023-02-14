@@ -45,6 +45,9 @@ jobs:
   ecr-repo:
     name: ECR Repo & Image
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     outputs:
       image: ${{ steps.build-image.outputs.image }}
     steps:
@@ -59,6 +62,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
           mask-aws-account-id: 'no'
+          permissions:
+            id-token: write
+            contents: read
 
       - name: Create new ECR repository using AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0

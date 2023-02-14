@@ -12,13 +12,13 @@ on:
       memory:
         description: Memory for the agent
         required: true
-        default: '1024'
+        default: '2048'
         type: choice
         options: ['512', '1024', '2048', '4096', '5120', '6144', '7168', '8192']
       s3_path:
         description: S3 path in the format bucket/path
         required: true
-        default: 'prefect-orion/prod'
+        default: 'orion-prefect/prod'
       block_name:
         description: Name of the S3 and ECS blocks
         required: true
@@ -31,7 +31,7 @@ on:
       aws-region:
         description: AWS Region
         required: true
-        default: 'us-east-1'
+        default: 'eu-west-2'
         type: string
 
 env:
@@ -62,9 +62,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
           mask-aws-account-id: 'no'
-          permissions:
-            id-token: write
-            contents: read
 
       - name: Create new ECR repository using AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0
